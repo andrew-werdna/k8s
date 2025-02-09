@@ -7,3 +7,7 @@ up:
 .PHONY: down
 down:
 	kind delete cluster -n $(CLUSTER_NAME)
+
+.PHONY: apply
+apply:
+	kubectl apply -f apps/ingress-nginx.yaml
