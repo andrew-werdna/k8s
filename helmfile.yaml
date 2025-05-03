@@ -1,0 +1,21 @@
+repositories:
+- name: prometheus-community
+  url: https://prometheus-community.github.io/helm-charts
+- name: argo
+  url: https://argoproj.github.io/argo-helm
+- name: hashicorp
+  url: hashicorp https://helm.releases.hashicorp.com
+
+releases:
+- name: kube-prometheus-stack
+  namespace: monitoring
+  chart: prometheus-community/prometheus
+  set:
+  - name: rbac.create
+    value: false
+- name: argocd
+  namespace: argo
+  chart: argo/argo-cd
+- name: vault
+  namespace: security
+  chart: hashicorp/vault

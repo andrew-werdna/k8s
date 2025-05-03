@@ -1,0 +1,24 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  CLUSTER_NAME: homestyle
+
+tasks:
+
+  up:
+    cmds:
+      - kind create cluster -n "{{.CLUSTER_NAME}}" --config kind-config.yaml
+      - task: helm
+    silent: true
+
+  down:
+    cmds:
+      - kind delete cluster -n "{{.CLUSTER_NAME}}"
+    silent: true
+
+  helm:
+    cmds:
+      - helmfile apply
+    silent: true
