@@ -8,20 +8,48 @@ vars:
 tasks:
 
   up:
-    desc: "create the cluster and apply the helm charts"
+    desc: "ensure helm readiness, create cluster, install releases"
     cmds:
-      - kind create cluster -n "{{.CLUSTER_NAME}}" --config kind-config.yaml
-      - task: helm
+      - task: hfs
+      - task: cu
+      - task: hfu
     silent: true
 
-  down:
+  cluster_up:
+    desc: "create the cluster"
+    aliases:
+      - cu
+    cmds:
+      - kind create cluster -n "{{.CLUSTER_NAME}}" --config kind-config.yaml
+    silent: true
+
+  cluster_down:
     desc: "delete the cluster"
+    aliases:
+      - cd
     cmds:
       - kind delete cluster -n "{{.CLUSTER_NAME}}"
     silent: true
 
-  helm:
-    desc: "create releases from the specified helm charts"
+  helmfile_setup:
+    desc: "ensure that helmfile is setup"
+    aliases:
+      - hfs
     cmds:
-      - helmfile apply
+      - helmfile init
+      - helmfile deps
+
+  helmfile_up:
+    desc: "create releases from the specified helm charts"
+    aliases:
+      - hfu
+    cmds:
+      - helmfile sync
     silent: true
+
+  helmfile_down:
+    desc: "uninstall all helm releases"
+    aliases:
+      - hfd
+    cmds:
+      - helmfile destroy

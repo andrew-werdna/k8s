@@ -7,15 +7,18 @@ repositories:
   url: https://helm.releases.hashicorp.com
 
 releases:
-- name: kube-prometheus-stack
+- name: kps
   namespace: monitoring
-  chart: prometheus-community/prometheus
-  set:
-  - name: rbac.create
-    value: false
+  chart: prometheus-community/kube-prometheus-stack
+  atomic: true
+  cleanupOnFail: true
 - name: argocd
   namespace: argo
   chart: argo/argo-cd
+  atomic: true
+  cleanupOnFail: true
 - name: vault
   namespace: security
   chart: hashicorp/vault
+  atomic: true
+  cleanupOnFail: true
