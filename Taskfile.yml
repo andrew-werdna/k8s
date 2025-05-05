@@ -10,7 +10,6 @@ tasks:
   up:
     desc: "ensure helm readiness, create cluster, install releases"
     cmds:
-      - task: hfs
       - task: cu
       - task: hfu
     silent: true
