@@ -8,17 +8,20 @@ vars:
 tasks:
 
   up:
+    desc: "create the cluster and apply the helm charts"
     cmds:
       - kind create cluster -n "{{.CLUSTER_NAME}}" --config kind-config.yaml
       - task: helm
     silent: true
 
   down:
+    desc: "delete the cluster"
     cmds:
       - kind delete cluster -n "{{.CLUSTER_NAME}}"
     silent: true
 
   helm:
+    desc: "create releases from the specified helm charts"
     cmds:
       - helmfile apply
     silent: true
