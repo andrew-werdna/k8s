@@ -37,6 +37,7 @@ tasks:
     cmds:
       - helmfile init
       - helmfile deps
+    silent: true
 
   helmfile_up:
     desc: "create releases from the specified helm charts"
@@ -52,3 +53,4 @@ tasks:
       - hfd
     cmds:
       - helmfile destroy
+    silent: true
